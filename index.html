@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>クリスマスクイズチャレンジ 🎄</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f1f1f1;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+            padding: 50px 0;
+        }
+        h1 {
+            font-size: 3rem;
+            color: #f44336;
+        }
+        .question {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+        }
+        .answer-buttons {
+            margin-top: 20px;
+        }
+        .answer-buttons button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+        .answer-buttons button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 30px;
+            display: none;
+        }
+        .emoji {
+            font-size: 3rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🎄 クリスマスクイズチャレンジ 🎄</h1>
+
+    <div class="question" id="question1">
+        <p>質問 1️⃣: 誰がクリスマスに子供たちにプレゼントを持ってきて、赤い服を着て、通常はトナカイのそりを引いていますか？</p>
+        <div class="answer-buttons">
+            <button onclick="checkAnswer(1, 'A')">A) サンタクロース</button>
+            <button onclick="checkAnswer(1, 'B')">B) 聖ニコラウス</button>
+            <button onclick="checkAnswer(1, 'C')">C) クリスマスエンジェル</button>
+        </div>
+    </div>
+
+    <div class="question" id="question2" style="display: none;">
+        <p>質問 2️⃣: 「きよしこの夜」の歌は誰が作曲しましたか？</p>
+        <div class="answer-buttons">
+            <button onclick="checkAnswer(2, 'A')">A) フランツ・グルーバー</button>
+            <button onclick="checkAnswer(2, 'B')">B) ジョン・レノン</button>
+            <button onclick="checkAnswer(2, 'C')">C) ジョージ・ハーバート</button>
+        </div>
+    </div>
+
+    <div class="question" id="question3" style="display: none;">
+        <p>質問 3️⃣: クリスマスは本来、誰の誕生を記念するためのものですか？</p>
+        <div class="answer-buttons">
+            <button onclick="checkAnswer(3, 'A')">A) イエス・キリスト</button>
+            <button onclick="checkAnswer(3, 'B')">B) 聖パウロ</button>
+            <button onclick="checkAnswer(3, 'C')">C) ヨセフ</button>
+        </div>
+    </div>
+
+    <div class="result" id="result">
+        <p class="emoji">🎉</p>
+        <p id="resultMessage"></p>
+        <button onclick="restartGame()">もう一度チャレンジ</button>
+    </div>
+</div>
+
+<script>
+    let correctAnswers = 0;
+    
+    const correctAnswerMap = {
+        1: 'A',
+        2: 'A',
+        3: 'A'
+    };
+
+    function checkAnswer(questionNumber, answer) {
+        if (answer === correctAnswerMap[questionNumber]) {
+            correctAnswers++;
+        }
+        showNextQuestion(questionNumber);
+    }
+
+    function showNextQuestion(questionNumber) {
+        document.getElementById(`question${questionNumber}`).style.display = 'none';
+        if (questionNumber < 3) {
+            document.getElementById(`question${questionNumber + 1}`).style.display = 'block';
+        } else {
+            showResult();
+        }
+    }
+
+    function showResult() {
+        let resultMessage = `あなたは ${correctAnswers} 問正解しました！`;
+        if (correctAnswers === 3) {
+            resultMessage += " 🏅 完璧です！おめでとうございます！";
+        } else if (correctAnswers === 0) {
+            resultMessage += " 😔 1問も正解できませんでした。もう一度チャレンジしてみてください！";
+        } else {
+            resultMessage += " 🎄 来年また挑戦してください！";
+        }
+        document.getElementById("resultMessage").innerText = resultMessage;
+        document.getElementById("result").style.display = 'block';
+    }
+
+    function restartGame() {
+        correctAnswers = 0;
+        document.getElementById("result").style.display = 'none';
+        document.getElementById("question1").style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
